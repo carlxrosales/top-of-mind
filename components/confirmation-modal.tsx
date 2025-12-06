@@ -42,14 +42,14 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               className="flex-1 bg-grey-light rounded-full py-3 items-center"
               activeOpacity={0.7}
             >
-              <Text className="text-black text-base font-bold">Cancel</Text>
+              <Text className="text-black text-base font-bold" numberOfLines={1}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={onConfirm}
               className="flex-1 bg-yellow rounded-full py-3 items-center"
               activeOpacity={0.8}
             >
-              <Text className="text-black text-base font-bold">Confirm</Text>
+              <Text className="text-black text-base font-bold" numberOfLines={1}>Confirm</Text>
             </TouchableOpacity>
           </View>
         </View>

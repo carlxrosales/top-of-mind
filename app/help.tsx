@@ -125,7 +125,7 @@ export default function HelpScreen() {
               className='bg-yellow rounded-full py-4 items-center'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-base font-bold'>Contact Us</Text>
+              <Text className='text-black text-base font-bold' numberOfLines={1}>Contact Us</Text>
             </TouchableOpacity>
           </View>
 
@@ -150,7 +150,7 @@ export default function HelpScreen() {
                 className='bg-grey-dark/30 rounded-2xl px-4 py-4'
                 activeOpacity={0.7}
               >
-                <Text className='text-white text-base font-bold'>
+                <Text className='text-white text-base font-bold' numberOfLines={1}>
                   Privacy Policy
                 </Text>
               </TouchableOpacity>
@@ -159,7 +159,7 @@ export default function HelpScreen() {
                 className='bg-grey-dark/30 rounded-2xl px-4 py-4'
                 activeOpacity={0.7}
               >
-                <Text className='text-white text-base font-bold'>
+                <Text className='text-white text-base font-bold' numberOfLines={1}>
                   Terms of Use
                 </Text>
               </TouchableOpacity>

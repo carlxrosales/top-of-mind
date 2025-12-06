@@ -1,19 +1,19 @@
+import { ResultsContent } from "@/components/results-content";
+import { useGame } from "@/contexts/game-context";
+import { Image } from "expo-image";
+import * as MediaLibrary from "expo-media-library";
+import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
+  Platform,
   SafeAreaView,
   ScrollView,
-  Platform,
   Share,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { Image } from "expo-image";
-import { useRouter } from "expo-router";
-import { useGame } from "@/contexts/game-context";
-import { ResultsContent } from "@/components/results-content";
 import ViewShot from "react-native-view-shot";
-import * as MediaLibrary from "expo-media-library";
 
 const isWeb = Platform.OS === "web";
 
@@ -74,7 +74,9 @@ export default function ResultsScreen() {
           className='bg-yellow rounded-full px-12 py-4'
           activeOpacity={0.8}
         >
-          <Text className='text-black text-lg font-bold'>Home</Text>
+          <Text className='text-black text-lg font-bold' numberOfLines={1}>
+            Home
+          </Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -103,13 +105,15 @@ export default function ResultsScreen() {
       {isWeb ? (
         <>
           {shareableContent}
-          <View className='items-center pb-6'>
+          <View className='items-center pt-2 pb-6'>
             <TouchableOpacity
               onPress={handleNewGame}
               className='bg-yellow rounded-full px-16 py-5 mb-4'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-xl font-bold'>New Game</Text>
+              <Text className='text-black text-xl font-bold' numberOfLines={1}>
+                New Game
+              </Text>
             </TouchableOpacity>
           </View>
         </>
@@ -122,13 +126,15 @@ export default function ResultsScreen() {
           >
             {shareableContent}
           </ViewShot>
-          <View className='items-center pb-6'>
+          <View className='items-center pt-2 pb-6'>
             <TouchableOpacity
               onPress={handleNewGame}
               className='bg-yellow rounded-full px-16 py-5 mb-4'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-xl font-bold'>New Game</Text>
+              <Text className='text-black text-xl font-bold' numberOfLines={1}>
+                New Game
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleShare}
@@ -136,7 +142,7 @@ export default function ResultsScreen() {
               activeOpacity={0.8}
               disabled={isSharing}
             >
-              <Text className='text-black text-lg font-bold'>
+              <Text className='text-black text-lg font-bold' numberOfLines={1}>
                 {Platform.OS === "android" ? "Save" : "Share"}
               </Text>
             </TouchableOpacity>

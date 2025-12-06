@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function CoverScreen() {
   const router = useRouter();
@@ -47,7 +47,9 @@ export default function CoverScreen() {
           className='bg-yellow rounded-full px-16 py-5 mb-4'
           activeOpacity={0.8}
         >
-          <Text className='text-black text-xl font-bold'>Start Game</Text>
+          <Text className='text-black text-xl font-bold' numberOfLines={1}>
+            Start Game
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -55,7 +57,9 @@ export default function CoverScreen() {
           className='bg-grey-light rounded-full px-12 py-4 mb-8'
           activeOpacity={0.8}
         >
-          <Text className='text-black text-lg font-bold'>How it Works</Text>
+          <Text className='text-black text-lg font-bold' numberOfLines={1}>
+            How it Works
+          </Text>
         </TouchableOpacity>
 
         <View className='px-6'>

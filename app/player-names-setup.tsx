@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput,
-  ScrollView,
-  Keyboard,
-} from "react-native";
-import { useRouter } from "expo-router";
 import { useGame } from "@/contexts/game-context";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import {
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function PlayerNamesSetupScreen() {
   const router = useRouter();
@@ -59,7 +59,9 @@ export default function PlayerNamesSetupScreen() {
           className='bg-yellow rounded-full px-12 py-4'
           activeOpacity={0.8}
         >
-          <Text className='text-black text-lg font-bold'>Back</Text>
+          <Text className='text-black text-lg font-bold' numberOfLines={1}>
+            Back
+          </Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -67,11 +69,16 @@ export default function PlayerNamesSetupScreen() {
 
   return (
     <SafeAreaView className='flex-1 bg-black'>
-      <ScrollView className='flex-1' contentContainerStyle={{ flexGrow: 1 }}>
-        <View
-          className='flex-1 justify-center px-6 py-8'
-          style={{ maxWidth: 600, alignSelf: "center", width: "100%" }}
-        >
+      <ScrollView
+        className='flex-1'
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingTop: 42,
+          paddingBottom: 42,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{ maxWidth: 600, alignSelf: "center", width: "100%" }}>
           <Text className='text-white text-3xl font-bold mb-2 text-center'>
             Who's playing?
           </Text>
@@ -109,7 +116,9 @@ export default function PlayerNamesSetupScreen() {
               className='bg-yellow rounded-full px-16 py-5 mb-4'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-xl font-bold'>Start Game</Text>
+              <Text className='text-black text-xl font-bold' numberOfLines={1}>
+                Start Game
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -117,7 +126,9 @@ export default function PlayerNamesSetupScreen() {
               className='bg-grey-light rounded-full px-12 py-4'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-lg font-bold'>Back</Text>
+              <Text className='text-black text-lg font-bold' numberOfLines={1}>
+                Back
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

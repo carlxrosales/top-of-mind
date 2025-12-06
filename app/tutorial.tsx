@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "expo-router";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { useRouter } from "expo-router";
 
 type TabType = "classic" | "advanced";
 
@@ -161,7 +161,10 @@ export default function TutorialScreen() {
 
   return (
     <SafeAreaView className='flex-1 bg-black'>
-      <View className='px-6 pt-8'>
+      <View
+        className='px-6 pt-8'
+        style={{ maxWidth: 600, alignSelf: "center", width: "100%" }}
+      >
         <Text className='text-white text-4xl font-bold mb-2 text-center'>
           How to Play
         </Text>
@@ -182,6 +185,7 @@ export default function TutorialScreen() {
               className={`text-center text-base font-bold ${
                 activeTab === "classic" ? "text-black" : "text-black"
               }`}
+              numberOfLines={1}
             >
               Classic
             </Text>
@@ -197,6 +201,7 @@ export default function TutorialScreen() {
               className={`text-center text-base font-bold ${
                 activeTab === "advanced" ? "text-black" : "text-black"
               }`}
+              numberOfLines={1}
             >
               Advanced
             </Text>
@@ -209,7 +214,10 @@ export default function TutorialScreen() {
         className='flex-1'
         contentContainerStyle={{ paddingBottom: 140 }}
       >
-        <View className='px-6'>
+        <View
+          className='px-6'
+          style={{ maxWidth: 600, alignSelf: "center", width: "100%" }}
+        >
           {activeTab === "classic"
             ? renderClassicContent()
             : renderAdvancedContent()}
@@ -222,7 +230,9 @@ export default function TutorialScreen() {
           className='bg-yellow rounded-full px-12 py-4'
           activeOpacity={0.8}
         >
-          <Text className='text-black text-lg font-bold'>Got it!</Text>
+          <Text className='text-black text-lg font-bold' numberOfLines={1}>
+            Got it!
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -80,14 +80,14 @@ export const PlayerNameModal: React.FC<PlayerNameModalProps> = ({
               className='flex-1 bg-grey-light rounded-full py-3 items-center'
               activeOpacity={0.7}
             >
-              <Text className='text-black text-base font-bold'>Cancel</Text>
+              <Text className='text-black text-base font-bold' numberOfLines={1}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleSave}
               className='flex-1 bg-yellow rounded-full py-3 items-center'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-base font-bold'>Save</Text>
+              <Text className='text-black text-base font-bold' numberOfLines={1}>Save</Text>
             </TouchableOpacity>
           </View>
         </View>
