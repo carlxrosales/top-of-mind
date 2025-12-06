@@ -1,18 +1,18 @@
+import { Card as CardType } from "@/data/cards";
 import React from "react";
 import {
-  View,
   Text,
   TouchableOpacity,
   useWindowDimensions,
+  View,
 } from "react-native";
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  withSequence,
   interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withTiming,
 } from "react-native-reanimated";
-import { Card as CardType } from "@/data/cards";
 
 interface CardProps {
   card: CardType;
@@ -27,9 +27,9 @@ export const GameCard: React.FC<CardProps> = ({
   onFlip,
   cardKey,
 }) => {
-  const { width, height } = useWindowDimensions();
-  const MAX_CARD_WIDTH = 400;
-  const MAX_CARD_HEIGHT = 533;
+  const { width } = useWindowDimensions();
+  const MAX_CARD_WIDTH = 300;
+  const MAX_CARD_HEIGHT = 400;
 
   const calculatedWidth = width * 0.8;
   const calculatedHeight = calculatedWidth * (4 / 3);
@@ -126,7 +126,7 @@ export const GameCard: React.FC<CardProps> = ({
       </View>
       {isBack && (
         <View className='absolute bottom-3 right-3'>
-          <View className='bg-black rounded-full w-4 h-4 items-center justify-center'></View>
+          <View className='bg-black/60 rounded-full w-2 h-2 items-center justify-center'></View>
         </View>
       )}
     </View>

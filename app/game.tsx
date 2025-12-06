@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useGame } from "@/contexts/game-context";
 import { GameCard } from "@/components/card";
-import { PlayerList } from "@/components/player-list";
 import { ConfirmationModal } from "@/components/confirmation-modal";
+import { PlayerList } from "@/components/player-list";
 import { PlayerNameModal } from "@/components/player-name-modal";
-import { Player } from "@/contexts/game-context";
+import { Player, useGame } from "@/contexts/game-context";
 import { CARDS } from "@/data/cards";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function GameScreen() {
   const router = useRouter();
