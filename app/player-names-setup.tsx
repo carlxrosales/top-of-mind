@@ -68,7 +68,10 @@ export default function PlayerNamesSetupScreen() {
   return (
     <SafeAreaView className='flex-1 bg-black'>
       <ScrollView className='flex-1' contentContainerStyle={{ flexGrow: 1 }}>
-        <View className='flex-1 justify-center px-6 py-8'>
+        <View
+          className='flex-1 justify-center px-6 py-8'
+          style={{ maxWidth: 600, alignSelf: "center", width: "100%" }}
+        >
           <Text className='text-white text-3xl font-bold mb-2 text-center'>
             Who's playing?
           </Text>

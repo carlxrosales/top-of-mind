@@ -20,6 +20,9 @@ export default function RootLayout() {
             <Stack.Screen name='player-names-setup' />
             <Stack.Screen name='game' />
             <Stack.Screen name='results' />
+            <Stack.Screen name='help' />
+            <Stack.Screen name='privacy-policy' />
+            <Stack.Screen name='terms-of-use' />
           </Stack>
         </ToastProvider>
       </GameProvider>
