@@ -287,24 +287,77 @@ export const generateCards = (): Card[] => {
 
   const allCategories = Object.values(categories).flat();
 
+  // Track which category indices have been used across all cards
+  const usedCategoryIndices = new Set<number>();
+
   // Generate 110 cards
   for (let i = 0; i < 110; i++) {
     const front: string[] = [];
     const back: string[] = [];
 
+    // Get available category indices (not yet used)
+    const availableIndices = Array.from(
+      { length: allCategories.length },
+      (_, idx) => idx
+    ).filter((idx) => !usedCategoryIndices.has(idx));
+
+    // Shuffle available indices for random selection
+    const shuffledAvailable = [...availableIndices].sort(
+      () => Math.random() - 0.5
+    );
+
+    // If we have enough unused categories, use only those
+    // Otherwise, we'll need to reuse (but prioritize unused ones)
+    const useOnlyUnused = shuffledAvailable.length >= 8;
+
     // Randomly select 4 categories for front
     const frontIndices = new Set<number>();
+    const indicesToChooseFrom = useOnlyUnused
+      ? shuffledAvailable
+      : Array.from({ length: allCategories.length }, (_, idx) => idx).sort(
+          () => Math.random() - 0.5
+        );
+
+    for (const idx of indicesToChooseFrom) {
+      if (frontIndices.size >= 4) break;
+      if (useOnlyUnused || !usedCategoryIndices.has(idx)) {
+        frontIndices.add(idx);
+        usedCategoryIndices.add(idx);
+      }
+    }
+
+    // Fill remaining slots if needed (shouldn't happen with useOnlyUnused, but safety check)
     while (frontIndices.size < 4) {
-      frontIndices.add(Math.floor(Math.random() * allCategories.length));
+      const idx = Math.floor(Math.random() * allCategories.length);
+      if (!frontIndices.has(idx)) {
+        frontIndices.add(idx);
+        usedCategoryIndices.add(idx);
+      }
     }
     front.push(...Array.from(frontIndices).map((idx) => allCategories[idx]));
 
     // Randomly select 4 different categories for back
     const backIndices = new Set<number>();
+    const backIndicesToChooseFrom = useOnlyUnused
+      ? shuffledAvailable.filter((idx) => !frontIndices.has(idx))
+      : Array.from({ length: allCategories.length }, (_, idx) => idx)
+          .filter((idx) => !frontIndices.has(idx))
+          .sort(() => Math.random() - 0.5);
+
+    for (const idx of backIndicesToChooseFrom) {
+      if (backIndices.size >= 4) break;
+      if (useOnlyUnused || !usedCategoryIndices.has(idx)) {
+        backIndices.add(idx);
+        usedCategoryIndices.add(idx);
+      }
+    }
+
+    // Fill remaining slots if needed
     while (backIndices.size < 4) {
       const idx = Math.floor(Math.random() * allCategories.length);
-      if (!frontIndices.has(idx)) {
+      if (!frontIndices.has(idx) && !backIndices.has(idx)) {
         backIndices.add(idx);
+        usedCategoryIndices.add(idx);
       }
     }
     back.push(...Array.from(backIndices).map((idx) => allCategories[idx]));

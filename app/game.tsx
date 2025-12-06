@@ -3,7 +3,6 @@ import { ConfirmationModal } from "@/components/confirmation-modal";
 import { PlayerList } from "@/components/player-list";
 import { PlayerNameModal } from "@/components/player-name-modal";
 import { Player, useGame } from "@/contexts/game-context";
-import { CARDS } from "@/data/cards";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -28,7 +27,7 @@ export default function GameScreen() {
   const [showNameModal, setShowNameModal] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
 
-  const currentCard = CARDS[gameState.currentCardIndex];
+  const currentCard = gameState.cards[gameState.currentCardIndex];
 
   const handleEndGame = () => {
     setShowEndGameModal(true);
@@ -77,7 +76,7 @@ export default function GameScreen() {
     return null;
   }
 
-  const isLastCard = gameState.currentCardIndex === CARDS.length - 1;
+  const isLastCard = gameState.currentCardIndex === gameState.cards.length - 1;
 
   return (
     <View className='flex-1 bg-black'>
@@ -95,7 +94,7 @@ export default function GameScreen() {
             <Text className='text-white text-sm font-bold'>End</Text>
           </TouchableOpacity>
           <Text className='text-white text-sm font-bold'>
-            {gameState.currentCardIndex + 1} / 110
+            {gameState.currentCardIndex + 1} / {gameState.cards.length}
           </Text>
           <View className='w-16' />
         </View>

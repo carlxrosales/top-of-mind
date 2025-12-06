@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import { Card, generateCards } from "@/data/cards";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 export interface Player {
   id: string;
@@ -12,6 +13,7 @@ export interface GameState {
   isCardFlipped: boolean;
   isGameActive: boolean;
   playersWithPointForCurrentCard: string[]; // Track which players have added a point for the current card
+  cards: Card[]; // Cards for the current game
 }
 
 interface GameContextType {
@@ -46,6 +48,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     isCardFlipped: false,
     isGameActive: false,
     playersWithPointForCurrentCard: [],
+    cards: [],
   });
 
   const startGame = useCallback((numPlayers: number) => {
@@ -55,12 +58,16 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
       score: 0,
     }));
 
+    // Generate fresh cards for each new game
+    const cards = generateCards();
+
     setGameState({
       players,
       currentCardIndex: 0,
       isCardFlipped: false,
       isGameActive: true,
       playersWithPointForCurrentCard: [],
+      cards,
     });
   }, []);
 
@@ -81,7 +88,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   const drawNewCard = useCallback(() => {
     setGameState((prev) => ({
       ...prev,
-      currentCardIndex: (prev.currentCardIndex + 1) % 110,
+      currentCardIndex: (prev.currentCardIndex + 1) % prev.cards.length,
       isCardFlipped: false,
       playersWithPointForCurrentCard: [], // Reset tracking for new card
     }));
@@ -147,6 +154,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
       isCardFlipped: false,
       isGameActive: false,
       playersWithPointForCurrentCard: [],
+      cards: [],
     });
   }, []);
 
