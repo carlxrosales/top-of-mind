@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.carlrosales.topofmind"
+      "bundleIdentifier": "com.carlrosales.topofmind",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -40,11 +43,18 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      ["expo-media-library", { "granularPermissions": ["photo"] }]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "14bc9d7b-ed02-431a-80e4-d0713277b019"
+      }
     }
   }
 }

@@ -42,7 +42,9 @@ export default function ResultsScreen() {
       }
 
       if (Platform.OS === "android") {
-        const { status } = await MediaLibrary.requestPermissionsAsync();
+        const { status } = await MediaLibrary.requestPermissionsAsync(true, [
+          "photo",
+        ]);
         if (status !== "granted") {
           setIsSharing(false);
           return;
