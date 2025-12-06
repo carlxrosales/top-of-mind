@@ -8,6 +8,7 @@ import {
   Platform,
   Share,
 } from "react-native";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useGame } from "@/contexts/game-context";
 import { ResultsContent } from "@/components/results-content";
@@ -77,31 +78,20 @@ export default function ResultsScreen() {
     );
   }
 
-  const content = (
-    <ScrollView className='flex-1' contentContainerStyle={{ flexGrow: 1 }}>
-      <View className='flex-1 justify-center items-center px-6 py-12'>
+  const shareableContent = (
+    <ScrollView
+      className='flex-1 bg-black'
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
+      <View className='flex-1 justify-center items-center px-6 py-12 bg-black'>
+        <View className='bg-grey-dark rounded-full w-24 h-24 items-center justify-center mb-6 overflow-hidden'>
+          <Image
+            source={require("@/assets/images/icon.png")}
+            style={{ width: 62, height: 62 }}
+            contentFit='contain'
+          />
+        </View>
         <ResultsContent />
-
-        <TouchableOpacity
-          onPress={handleNewGame}
-          className='bg-yellow rounded-full px-16 py-5 mb-4'
-          activeOpacity={0.8}
-        >
-          <Text className='text-black text-xl font-bold'>New Game</Text>
-        </TouchableOpacity>
-
-        {!isWeb && (
-          <TouchableOpacity
-            onPress={handleShare}
-            className='bg-grey-light rounded-full px-12 py-4'
-            activeOpacity={0.8}
-            disabled={isSharing}
-          >
-            <Text className='text-black text-lg font-bold'>
-              {Platform.OS === "android" ? "Save" : "Share"}
-            </Text>
-          </TouchableOpacity>
-        )}
       </View>
     </ScrollView>
   );
@@ -109,15 +99,47 @@ export default function ResultsScreen() {
   return (
     <SafeAreaView className='flex-1 bg-black'>
       {isWeb ? (
-        content
+        <>
+          {shareableContent}
+          <View className='items-center pb-6'>
+            <TouchableOpacity
+              onPress={handleNewGame}
+              className='bg-yellow rounded-full px-16 py-5 mb-4'
+              activeOpacity={0.8}
+            >
+              <Text className='text-black text-xl font-bold'>New Game</Text>
+            </TouchableOpacity>
+          </View>
+        </>
       ) : (
-        <ViewShot
-          ref={viewShotRef}
-          options={{ format: "png", quality: 1 }}
-          style={{ flex: 1 }}
-        >
-          {content}
-        </ViewShot>
+        <>
+          <ViewShot
+            ref={viewShotRef}
+            options={{ format: "png", quality: 1 }}
+            style={{ flex: 1, backgroundColor: "#000000" }}
+          >
+            {shareableContent}
+          </ViewShot>
+          <View className='items-center pb-6'>
+            <TouchableOpacity
+              onPress={handleNewGame}
+              className='bg-yellow rounded-full px-16 py-5 mb-4'
+              activeOpacity={0.8}
+            >
+              <Text className='text-black text-xl font-bold'>New Game</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleShare}
+              className='bg-grey-light rounded-full px-12 py-4'
+              activeOpacity={0.8}
+              disabled={isSharing}
+            >
+              <Text className='text-black text-lg font-bold'>
+                {Platform.OS === "android" ? "Save" : "Share"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
       )}
     </SafeAreaView>
   );

@@ -17,11 +17,14 @@ export const PlayerList: React.FC<PlayerListProps> = ({
   onEditName,
   hasPointForCurrentCard,
 }) => {
-  const isSingleColumn = players.length <= 3;
-  const cardWidth = isSingleColumn ? "100%" : "48%";
+  const cardWidth = "48%";
 
   return (
-    <ScrollView className='flex-1' showsVerticalScrollIndicator={false}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      nestedScrollEnabled={true}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
       <View className='flex-row flex-wrap' style={{ gap: 8 }}>
         {players.map((player) => {
           const hasPoint = hasPointForCurrentCard(player.id);

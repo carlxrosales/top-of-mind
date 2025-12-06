@@ -9,10 +9,10 @@ export default function CoverScreen() {
   return (
     <View className='flex-1 bg-black justify-center items-center px-6'>
       <View className='items-center mb-16'>
-        <View className='bg-yellow rounded-full w-24 h-24 items-center justify-center mb-4 overflow-hidden'>
+        <View className='bg-grey-dark rounded-full w-24 h-24 items-center justify-center mb-4 overflow-hidden'>
           <Image
             source={require("@/assets/images/icon.png")}
-            style={{ width: 66, height: 66 }}
+            style={{ width: 62, height: 62 }}
             contentFit='contain'
           />
         </View>

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  Keyboard,
 } from "react-native";
 import { Player } from "@/contexts/game-context";
 
@@ -29,6 +30,14 @@ export const PlayerNameModal: React.FC<PlayerNameModalProps> = ({
     }
   }, [player]);
 
+  const handleNameChange = (text: string) => {
+    const textWithoutNewlines = text.replace(/\n/g, "");
+    if (textWithoutNewlines !== text) {
+      Keyboard.dismiss();
+    }
+    setName(textWithoutNewlines);
+  };
+
   const handleSave = () => {
     if (player && name.trim()) {
       onSave(player.id, name.trim());
@@ -42,38 +51,43 @@ export const PlayerNameModal: React.FC<PlayerNameModalProps> = ({
     <Modal
       visible={visible}
       transparent
-      animationType="fade"
+      animationType='fade'
       onRequestClose={onClose}
     >
-      <View className="flex-1 bg-black/70 justify-center items-center px-6">
-        <View className="bg-white rounded-3xl p-5 w-full max-w-sm">
-          <Text className="text-black text-xl font-bold mb-3 text-center">
+      <View className='flex-1 bg-black/70 justify-center items-center px-6'>
+        <View className='bg-white rounded-3xl p-5 w-full max-w-sm'>
+          <Text className='text-black text-xl font-bold mb-3 text-center'>
             Edit Player Name
           </Text>
           <TextInput
             value={name}
-            onChangeText={setName}
-            placeholder="Enter player name"
-            placeholderTextColor="rgb(150, 150, 150)"
-            className="bg-grey-light rounded-2xl px-4 py-3 mb-4 text-black text-base"
+            onChangeText={handleNameChange}
+            placeholder='Enter player name'
+            placeholderTextColor='rgb(150, 150, 150)'
+            className='bg-grey-light rounded-2xl px-4 py-3 mb-4 text-black text-base'
             autoFocus
             maxLength={20}
             onSubmitEditing={handleSave}
+            numberOfLines={1}
+            multiline
+            textAlignVertical='top'
+            autoComplete='off'
+            autoCorrect={false}
           />
-          <View className="flex-row" style={{ gap: 12 }}>
+          <View className='flex-row' style={{ gap: 12 }}>
             <TouchableOpacity
               onPress={onClose}
-              className="flex-1 bg-grey-light rounded-full py-3 items-center"
+              className='flex-1 bg-grey-light rounded-full py-3 items-center'
               activeOpacity={0.7}
             >
-              <Text className="text-black text-base font-bold">Cancel</Text>
+              <Text className='text-black text-base font-bold'>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleSave}
-              className="flex-1 bg-yellow rounded-full py-3 items-center"
+              className='flex-1 bg-yellow rounded-full py-3 items-center'
               activeOpacity={0.8}
             >
-              <Text className="text-black text-base font-bold">Save</Text>
+              <Text className='text-black text-base font-bold'>Save</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -81,4 +95,3 @@ export const PlayerNameModal: React.FC<PlayerNameModalProps> = ({
     </Modal>
   );
 };
-
