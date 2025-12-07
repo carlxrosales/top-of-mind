@@ -5,6 +5,7 @@ import * as MediaLibrary from "expo-media-library";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Platform,
   SafeAreaView,
   ScrollView,
@@ -19,7 +20,7 @@ const isWeb = Platform.OS === "web";
 
 export default function ResultsScreen() {
   const router = useRouter();
-  const { gameState, resetGame } = useGame();
+  const { gameState, isLoading, resetGame } = useGame();
   const [isSharing, setIsSharing] = useState(false);
   const viewShotRef = useRef<ViewShot>(null);
 
@@ -53,8 +54,8 @@ export default function ResultsScreen() {
       } else {
         const result = await Share.share({ url: uri });
       }
-    } catch (error) {
-      console.error("Share error:", error);
+    } catch {
+      // Error sharing
     } finally {
       setIsSharing(false);
     }
@@ -64,6 +65,15 @@ export default function ResultsScreen() {
     resetGame();
     router.push("/");
   };
+
+  if (isLoading) {
+    return (
+      <SafeAreaView className='flex-1 bg-black justify-center items-center'>
+        <ActivityIndicator size='large' color='#FFD700' />
+        <Text className='text-white text-xl mb-4 mt-4'>Loading results...</Text>
+      </SafeAreaView>
+    );
+  }
 
   if (!gameState.players || gameState.players.length === 0) {
     return (

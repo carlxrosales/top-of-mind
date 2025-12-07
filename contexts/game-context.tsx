@@ -1,5 +1,12 @@
 import { Card, generateCards } from "@/data/cards";
-import React, { createContext, useCallback, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export interface Player {
   id: string;
@@ -18,6 +25,7 @@ export interface GameState {
 
 interface GameContextType {
   gameState: GameState;
+  isLoading: boolean;
   startGame: (numPlayers: number) => void;
   endGame: () => void;
   flipCard: () => void;
@@ -30,6 +38,8 @@ interface GameContextType {
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
+
+const STORAGE_KEY = "@top_of_mind_game_state";
 
 export const useGame = () => {
   const context = useContext(GameContext);
@@ -50,8 +60,41 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     playersWithPointForCurrentCard: [],
     cards: [],
   });
+  const [isLoading, setIsLoading] = useState(true);
 
-  const startGame = useCallback((numPlayers: number) => {
+  useEffect(() => {
+    const loadGameState = async () => {
+      try {
+        const storedState = await AsyncStorage.getItem(STORAGE_KEY);
+        if (storedState) {
+          const parsedState = JSON.parse(storedState);
+          setGameState(parsedState);
+        }
+      } catch {
+        // Error loading game state
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadGameState();
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      const saveGameState = async () => {
+        try {
+          await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+        } catch {
+          // Error saving game state
+        }
+      };
+
+      saveGameState();
+    }
+  }, [gameState, isLoading]);
+
+  const startGame = useCallback(async (numPlayers: number) => {
     const players: Player[] = Array.from({ length: numPlayers }, (_, i) => ({
       id: `player-${i + 1}`,
       name: `Player ${i + 1}`,
@@ -61,14 +104,21 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     // Generate fresh cards for each new game
     const cards = generateCards();
 
-    setGameState({
+    const newState = {
       players,
       currentCardIndex: 0,
       isCardFlipped: false,
       isGameActive: true,
       playersWithPointForCurrentCard: [],
       cards,
-    });
+    };
+
+    setGameState(newState);
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+    } catch {
+      // Error saving game state
+    }
   }, []);
 
   const endGame = useCallback(() => {
@@ -147,15 +197,21 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   }, []);
 
-  const resetGame = useCallback(() => {
-    setGameState({
+  const resetGame = useCallback(async () => {
+    const resetState = {
       players: [],
       currentCardIndex: 0,
       isCardFlipped: false,
       isGameActive: false,
       playersWithPointForCurrentCard: [],
       cards: [],
-    });
+    };
+    setGameState(resetState);
+    try {
+      await AsyncStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Error clearing game state
+    }
   }, []);
 
   const hasPointForCurrentCard = useCallback(
@@ -169,6 +225,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     <GameContext.Provider
       value={{
         gameState,
+        isLoading,
         startGame,
         endGame,
         flipCard,

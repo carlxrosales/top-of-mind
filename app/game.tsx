@@ -20,6 +20,7 @@ export default function GameScreen() {
   const insets = useSafeAreaInsets();
   const {
     gameState,
+    isLoading,
     flipCard,
     drawNewCard,
     addPoint,
@@ -78,6 +79,15 @@ export default function GameScreen() {
     setShowNameModal(false);
     setSelectedPlayer(null);
   };
+
+  if (isLoading) {
+    return (
+      <SafeAreaView className='flex-1 bg-black justify-center items-center'>
+        <ActivityIndicator size='large' color='#FFD700' />
+        <Text className='text-white text-xl mb-4 mt-4'>Loading game...</Text>
+      </SafeAreaView>
+    );
+  }
 
   if (!gameState.isGameActive || !currentCard) {
     return (

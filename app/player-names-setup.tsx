@@ -2,6 +2,7 @@ import { useGame } from "@/contexts/game-context";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -15,7 +16,7 @@ import {
 
 export default function PlayerNamesSetupScreen() {
   const router = useRouter();
-  const { gameState, updatePlayerName } = useGame();
+  const { gameState, isLoading, updatePlayerName } = useGame();
   const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -51,6 +52,15 @@ export default function PlayerNamesSetupScreen() {
   const handleBack = () => {
     router.back();
   };
+
+  if (isLoading) {
+    return (
+      <SafeAreaView className='flex-1 bg-black justify-center items-center'>
+        <ActivityIndicator size='large' color='#FFD700' />
+        <Text className='text-white text-xl mb-4 mt-4'>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
 
   if (!gameState.players || gameState.players.length === 0) {
     return (
