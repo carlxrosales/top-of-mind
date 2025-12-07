@@ -115,7 +115,7 @@ export default function ResultsScreen() {
       {isWeb ? (
         <>
           {shareableContent}
-          <View className='items-center pt-2 pb-6'>
+          <View className='items-center pt-4 pb-6'>
             <TouchableOpacity
               onPress={handleNewGame}
               className='bg-yellow rounded-full px-16 py-5 mb-4'
@@ -136,7 +136,7 @@ export default function ResultsScreen() {
           >
             {shareableContent}
           </ViewShot>
-          <View className='items-center pt-2 pb-6'>
+          <View className='items-center pt-4 pb-6'>
             <TouchableOpacity
               onPress={handleNewGame}
               className='bg-yellow rounded-full px-16 py-5 mb-4'

@@ -1,6 +1,6 @@
 import { useGame } from "@/contexts/game-context";
 import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Keyboard,
@@ -18,6 +18,9 @@ export default function PlayerNamesSetupScreen() {
   const router = useRouter();
   const { gameState, isLoading, updatePlayerName } = useGame();
   const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
+  const scrollViewRef = useRef<ScrollView>(null);
+  const inputRefs = useRef<Record<string, TextInput | null>>({});
+  const inputPositions = useRef<Record<string, number>>({});
 
   useEffect(() => {
     // Initialize player names from game state
@@ -37,6 +40,23 @@ export default function PlayerNamesSetupScreen() {
       ...prev,
       [playerId]: textWithoutNewlines,
     }));
+  };
+
+  const handleInputFocus = (playerId: string) => {
+    const position = inputPositions.current[playerId];
+    if (position !== undefined && scrollViewRef.current) {
+      setTimeout(() => {
+        scrollViewRef.current?.scrollTo({
+          y: position - 100,
+          animated: true,
+        });
+      }, 100);
+    }
+  };
+
+  const handleInputLayout = (playerId: string, event: any) => {
+    const { y } = event.nativeEvent.layout;
+    inputPositions.current[playerId] = y;
   };
 
   const handleStart = () => {
@@ -87,6 +107,7 @@ export default function PlayerNamesSetupScreen() {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
         <ScrollView
+          ref={scrollViewRef}
           className='flex-1'
           contentContainerStyle={{
             paddingHorizontal: 24,
@@ -106,13 +127,21 @@ export default function PlayerNamesSetupScreen() {
 
             <View style={{ gap: 12, marginBottom: 24 }}>
               {gameState.players.map((player, index) => (
-                <View key={player.id} style={{ gap: 6 }}>
+                <View
+                  key={player.id}
+                  style={{ gap: 6 }}
+                  onLayout={(event) => handleInputLayout(player.id, event)}
+                >
                   <Text className='text-white text-sm opacity-70'>
                     Player {index + 1}
                   </Text>
                   <TextInput
+                    ref={(ref) => {
+                      inputRefs.current[player.id] = ref;
+                    }}
                     value={playerNames[player.id] || ""}
                     onChangeText={(text) => handleNameChange(player.id, text)}
+                    onFocus={() => handleInputFocus(player.id)}
                     placeholder={`Player ${index + 1}`}
                     placeholderTextColor='rgba(255, 255, 255, 0.5)'
                     className='bg-grey-light rounded-2xl px-4 py-4 text-black text-base font-bold'
