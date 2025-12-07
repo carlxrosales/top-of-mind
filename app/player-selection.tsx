@@ -57,7 +57,7 @@ export default function PlayerSelectionScreen() {
             activeOpacity={0.8}
           >
             <Text className='text-black text-xl font-bold' numberOfLines={1}>
-              Start
+              Next
             </Text>
           </TouchableOpacity>
 

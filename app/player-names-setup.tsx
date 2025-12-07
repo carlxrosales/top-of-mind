@@ -167,7 +167,7 @@ export default function PlayerNamesSetupScreen() {
                   className='text-black text-xl font-bold'
                   numberOfLines={1}
                 >
-                  Start Game
+                  Start
                 </Text>
               </TouchableOpacity>
 
