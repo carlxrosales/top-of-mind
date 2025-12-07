@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-  Linking,
-} from "react-native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import {
+  Linking,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type FAQItem = {
@@ -20,7 +20,7 @@ const faqs: FAQItem[] = [
   {
     question: "How do I play Top of Mind?",
     answer:
-      "Top of Mind is a party game where players try to match each other's answers. The player holding the phone reads a category and gives their answer first. Everyone else tries to match that answer. Only players whose answers match get a point. Check out the 'How it Works' section from the home screen for detailed instructions.",
+      "Top of Mind is a party game where players try to match each other's answers. The player holding the phone reads a category and gives their answer first. Everyone else tries to match that answer. Only players whose answers match get a point. Check out the 'How to Play' section from the home screen for detailed instructions.",
   },
   {
     question: "Can I customize player names?",
@@ -125,7 +125,12 @@ export default function HelpScreen() {
               className='bg-yellow rounded-full py-4 items-center'
               activeOpacity={0.8}
             >
-              <Text className='text-black text-base font-bold' numberOfLines={1}>Contact Us</Text>
+              <Text
+                className='text-black text-base font-bold'
+                numberOfLines={1}
+              >
+                Contact Us
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -150,7 +155,10 @@ export default function HelpScreen() {
                 className='bg-grey-dark/30 rounded-2xl px-4 py-4'
                 activeOpacity={0.7}
               >
-                <Text className='text-white text-base font-bold' numberOfLines={1}>
+                <Text
+                  className='text-white text-base font-bold'
+                  numberOfLines={1}
+                >
                   Privacy Policy
                 </Text>
               </TouchableOpacity>
@@ -159,7 +167,10 @@ export default function HelpScreen() {
                 className='bg-grey-dark/30 rounded-2xl px-4 py-4'
                 activeOpacity={0.7}
               >
-                <Text className='text-white text-base font-bold' numberOfLines={1}>
+                <Text
+                  className='text-white text-base font-bold'
+                  numberOfLines={1}
+                >
                   Terms of Use
                 </Text>
               </TouchableOpacity>

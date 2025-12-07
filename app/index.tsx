@@ -58,7 +58,7 @@ export default function CoverScreen() {
           activeOpacity={0.8}
         >
           <Text className='text-black text-lg font-bold' numberOfLines={1}>
-            How it Works
+            How to Play
           </Text>
         </TouchableOpacity>
 

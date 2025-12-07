@@ -5,7 +5,14 @@ import { PlayerNameModal } from "@/components/player-name-modal";
 import { Player, useGame } from "@/contexts/game-context";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function GameScreen() {
@@ -34,8 +41,8 @@ export default function GameScreen() {
   };
 
   const confirmEndGame = () => {
-    endGame();
     setShowEndGameModal(false);
+    endGame();
     router.push("/results");
   };
 
@@ -73,7 +80,12 @@ export default function GameScreen() {
   };
 
   if (!gameState.isGameActive || !currentCard) {
-    return null;
+    return (
+      <SafeAreaView className='flex-1 bg-black justify-center items-center'>
+        <ActivityIndicator size='large' color='#FFD700' />
+        <Text className='text-white text-xl mb-4 mt-4'>Loading results...</Text>
+      </SafeAreaView>
+    );
   }
 
   const isLastCard = gameState.currentCardIndex === gameState.cards.length - 1;
@@ -91,7 +103,9 @@ export default function GameScreen() {
             style={{ backgroundColor: "rgb(220, 38, 38)" }}
             activeOpacity={0.7}
           >
-            <Text className='text-white text-sm font-bold' numberOfLines={1}>End</Text>
+            <Text className='text-white text-sm font-bold' numberOfLines={1}>
+              End
+            </Text>
           </TouchableOpacity>
           <Text className='text-white text-sm font-bold'>
             {gameState.currentCardIndex + 1} / {gameState.cards.length}
@@ -142,7 +156,9 @@ export default function GameScreen() {
             className='flex-1 bg-grey-light rounded-full py-4 items-center'
             activeOpacity={0.8}
           >
-            <Text className='text-black text-base font-bold' numberOfLines={1}>Flip</Text>
+            <Text className='text-black text-base font-bold' numberOfLines={1}>
+              Flip
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={isLastCard ? handleEndGame : handleNextRound}
