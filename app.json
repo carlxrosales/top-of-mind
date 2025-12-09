@@ -33,7 +33,10 @@
     "web": {
       "output": "static",
       "bundler": "metro",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "meta": {
+        "apple-itunes-app": "app-id=6756205117"
+      }
     },
     "plugins": [
       "expo-router",
