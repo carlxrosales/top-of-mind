@@ -1,6 +1,7 @@
 import { GameProvider } from "@/contexts/game-context";
 import { ToastProvider } from "@/contexts/toast-context";
 import { Stack } from "expo-router";
+import Head from "expo-router/head";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -20,27 +21,32 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar style='light' />
-      <GameProvider>
-        <ToastProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name='index' />
-            <Stack.Screen name='tutorial' />
-            <Stack.Screen name='player-selection' />
-            <Stack.Screen name='player-names-setup' />
-            <Stack.Screen name='game' />
-            <Stack.Screen name='results' />
-            <Stack.Screen name='help' />
-            <Stack.Screen name='privacy-policy' />
-            <Stack.Screen name='terms-of-use' />
-          </Stack>
-        </ToastProvider>
-      </GameProvider>
-    </GestureHandlerRootView>
+    <>
+      <Head>
+        <meta name='apple-itunes-app' content='app-id=6756205117' />
+      </Head>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StatusBar style='light' />
+        <GameProvider>
+          <ToastProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name='index' />
+              <Stack.Screen name='tutorial' />
+              <Stack.Screen name='player-selection' />
+              <Stack.Screen name='player-names-setup' />
+              <Stack.Screen name='game' />
+              <Stack.Screen name='results' />
+              <Stack.Screen name='help' />
+              <Stack.Screen name='privacy-policy' />
+              <Stack.Screen name='terms-of-use' />
+            </Stack>
+          </ToastProvider>
+        </GameProvider>
+      </GestureHandlerRootView>
+    </>
   );
 }
