@@ -1,10 +1,12 @@
 import { GameProvider } from "@/contexts/game-context";
 import { ToastProvider } from "@/contexts/toast-context";
+import { Analytics } from "@vercel/analytics/react";
 import { Stack } from "expo-router";
 import Head from "expo-router/head";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
 
@@ -47,6 +49,7 @@ export default function RootLayout() {
           </ToastProvider>
         </GameProvider>
       </GestureHandlerRootView>
+      {Platform.OS === "web" && <Analytics />}
     </>
   );
 }
