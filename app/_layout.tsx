@@ -24,9 +24,11 @@ export default function RootLayout() {
 
   return (
     <>
-      <Head>
-        <meta name='apple-itunes-app' content='app-id=6756205117' />
-      </Head>
+      {Platform.OS === "web" && (
+        <Head>
+          <meta name='apple-itunes-app' content='app-id=6756205117' />
+        </Head>
+      )}
       <GestureHandlerRootView style={{ flex: 1 }}>
         <StatusBar style='light' />
         <GameProvider>
