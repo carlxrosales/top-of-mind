@@ -139,11 +139,9 @@ export default function PlayerNamesSetupScreen() {
                     ref={(ref) => {
                       inputRefs.current[player.id] = ref;
                     }}
-                    value={playerNames[player.id] || ""}
                     onChangeText={(text) => handleNameChange(player.id, text)}
                     onFocus={() => handleInputFocus(player.id)}
                     placeholder={`Player ${index + 1}`}
-                    placeholderTextColor='rgba(255, 255, 255, 0.5)'
                     className='bg-grey-light rounded-2xl px-4 py-4 text-black text-base font-bold'
                     autoCapitalize='words'
                     returnKeyType='next'

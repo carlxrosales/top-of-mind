@@ -27,7 +27,6 @@ export default function GameScreen() {
     subtractPoint,
     updatePlayerName,
     endGame,
-    resetGame,
     hasPointForCurrentCard,
   } = useGame();
   const [showEndGameModal, setShowEndGameModal] = useState(false);
@@ -98,6 +97,10 @@ export default function GameScreen() {
     );
   }
 
+  const drawCardLabel =
+    gameState.playersWithPointForCurrentCard.length > 0
+      ? "Next Round"
+      : "New Card";
   const isLastCard = gameState.currentCardIndex === gameState.cards.length - 1;
 
   return (
@@ -176,7 +179,7 @@ export default function GameScreen() {
             activeOpacity={0.8}
           >
             <Text className='text-black text-base font-bold' numberOfLines={1}>
-              {isLastCard ? "End Game" : "Next Round"}
+              {isLastCard ? "End Game" : drawCardLabel}
             </Text>
           </TouchableOpacity>
         </View>
