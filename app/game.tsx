@@ -97,10 +97,8 @@ export default function GameScreen() {
     );
   }
 
-  const drawCardLabel =
-    gameState.playersWithPointForCurrentCard.length > 0
-      ? "Next Round"
-      : "New Card";
+  const isRoundValid = gameState.playersWithPointForCurrentCard.length > 0;
+  const drawCardLabel = isRoundValid ? "Next Round" : "New Card";
   const isLastCard = gameState.currentCardIndex === gameState.cards.length - 1;
 
   return (
@@ -174,7 +172,13 @@ export default function GameScreen() {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={isLastCard ? handleEndGame : handleNextRound}
+            onPress={
+              isLastCard
+                ? handleEndGame
+                : isRoundValid
+                ? handleNextRound
+                : drawNewCard
+            }
             className='flex-1 bg-yellow rounded-full py-4 items-center'
             activeOpacity={0.8}
           >

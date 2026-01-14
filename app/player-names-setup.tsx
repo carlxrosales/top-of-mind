@@ -142,6 +142,7 @@ export default function PlayerNamesSetupScreen() {
                     onChangeText={(text) => handleNameChange(player.id, text)}
                     onFocus={() => handleInputFocus(player.id)}
                     placeholder={`Player ${index + 1}`}
+                    placeholderTextColor='rgb(42, 42, 42)'
                     className='bg-grey-light rounded-2xl px-4 py-4 text-black text-base font-bold'
                     autoCapitalize='words'
                     returnKeyType='next'
